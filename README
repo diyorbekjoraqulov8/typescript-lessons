@@ -1,0 +1,5 @@
+/* How to init typescript */
+
+1. in terminal: tsc --init
+2. in tsconfig.json file must be "sourceMap" = true
+3. in terminal tsc --watch or in tsconfig.json file have to write "watch" = true

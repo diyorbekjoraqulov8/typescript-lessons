@@ -1,45 +1,42 @@
-/* TypeScript Data Types */
+/* TypeScript => function, signature functions, function overloads */
 
-// let a = 12;
-// Type of 'a' can only be a "number"
-// a = "str"
-// Type 'string' is not assignable to type 'number'
-// Type of a can't be another Data Type
+// function fnName(arg1:arg-type, arg2:arg-type): return-data-type {
+//   return x ** y;
+// }
 
-let a: number;
-a = 12;
+// Function Decloration
+function pow(x: number, y: number): number {
+  return x**y
+}
+// Arrow Function
+const add = (x: number, y: number): number => x + y
 
-// let b = 'text' // type of be = auto 'string'
-// b = true
-// Type 'boolean' is not assignable to type 'string'
-// b = 'text 2' // true
-let b: string = 'text'
+// void functions - hech narsa qaytarmaydigan funksiyalar.
+function log(x: number): void {
+  console.log(x);
+}
 
-let c: boolean = true // true | false
+// never functions - hech qachon tugamaydiga (rekursev), yoki Error qaytaradigan funksiyalar
+function someFunc(s: string): never {
+  throw new Error(s)
+}
 
-// let d = null // type of d = auto 'any' because we didn't show type of d
-let d: null = null
-// let e = undefined // type of e = auto 'any' because we didn't show type of e
-let e: undefined = undefined
+// signature functions - biz shablon yaratamiz va keyinroq shunga moslab qiymat beramiz
+let c: (x:number, y:string) => string;
+c = function(a:number, b:string): string {
+	return `${b}: ${a}`
+}
+console.log(c(2,"Javob"));
 
-// let f = {} // type of f = auto '{}'
-// let f: object = {} // type of f = 'object'
+// overload functions - har-bir parametrga alohida type berish imkonini beradi
+function overloadFunc(x:number, y:number): number;
+function overloadFunc(x:number, y:string): string;
+function overloadFunc(x:any, y:any): any {
+  if (typeof x === 'number' && typeof y === 'number') {
+    return x + y
+  } else {
+    return `${x} ${y}`
+  }
+}
 
-// We need show object properties type
-let f: { name: string, age: number } = { name: 'Diyorbek', age: 20 }
-// type of f = { name: string, age: number }
-
-f.name = 'Joraqulov' // name is changed
-
-let g: any; // type of g can be all type in TS
-g = 12
-g = 'text'
-g = false
-g = { name: 'Diyorbek' }
-g = function () {}
-g = []
-g = null
-g = undefined
-
-let h: number = 0o744
-console.log(h);
+console.log(overloadFunc(1,2));

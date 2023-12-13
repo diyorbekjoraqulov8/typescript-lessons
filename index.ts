@@ -1,42 +1,59 @@
-/* TypeScript => function, signature functions, function overloads */
+/* TypeScript'da tiplarni o'zgartirish va birlashtirish */
+// unknown type, union types, literal types, type aliases, required and optional properties, operator in
 
-// function fnName(arg1:arg-type, arg2:arg-type): return-data-type {
-//   return x ** y;
-// }
+let a: any = 10
+let b: number = a // Bu usul tavsiya qilinmaydi
 
-// Function Decloration
-function pow(x: number, y: number): number {
-  return x**y
+let c: unknown = 20.9745
+let d: number = <number>c
+let f: number = c as number // Bu usul Type'ni o'zgartirishning xavfsiz usuli
+
+// let d: number = (<number> c).toString()
+// let f: number = (c as number).toFixed(2)
+
+// union types - bitta variablega bir qancha Type berish
+let h: number | string | boolean = 10;
+h = 'one'
+h = true
+
+// literal types - variable'ga berish mumkin bo'lgan bir qancha qiymat'ni ko'rsatish
+
+let s: "sm" | "md" | "lg"
+s = "sm"
+s = "lg"
+s = "md"
+
+// Type aliases - bir TYPE'ga bir qancha Type va qiymatlarni birlashtirish
+
+type Sizes = "SM" | "MD" | "LG" | boolean
+
+let s2: Sizes = "SM"
+s2 = "LG"
+s2 = "MD"
+
+let s3: Sizes = false;
+s3 = "SM"
+
+type OBJ1 = { name: string } | { age: number } // properties are optional
+
+let obj1: OBJ1 = { name: "Hello" }
+obj1 = { age: 20 }
+obj1 = { name: "Hello1", age: 20 }
+
+type OBJ2 = { name: string } & { age: number } // both property are required
+
+let obj2: OBJ2 = { name: "Azizbek", age: 13 }
+// let obj2: OBJ2 = { name: "Azizbek" }
+// let obj2: OBJ2 = { age: 13 }
+
+type OBJ3 = { name: string; age?: number }; // name is required and age is optional
+
+let obj3: OBJ3 = { name: "Diyorbek" }
+obj3 = { name: "Diyorbek", age: 20 }
+// obj3 = { age: 20 }
+
+if ("age" in obj3) {
+  console.log("mavjud");
+} else {
+  console.log("mavjud emas");
 }
-// Arrow Function
-const add = (x: number, y: number): number => x + y
-
-// void functions - hech narsa qaytarmaydigan funksiyalar.
-function log(x: number): void {
-  console.log(x);
-}
-
-// never functions - hech qachon tugamaydiga (rekursev), yoki Error qaytaradigan funksiyalar
-function someFunc(s: string): never {
-  throw new Error(s)
-}
-
-// signature functions - biz shablon yaratamiz va keyinroq shunga moslab qiymat beramiz
-let c: (x:number, y:string) => string;
-c = function(a:number, b:string): string {
-	return `${b}: ${a}`
-}
-console.log(c(2,"Javob"));
-
-// overload functions - har-bir parametrga alohida type berish imkonini beradi
-function overloadFunc(x:number, y:number): number;
-function overloadFunc(x:number, y:string): string;
-function overloadFunc(x:any, y:any): any {
-  if (typeof x === 'number' && typeof y === 'number') {
-    return x + y
-  } else {
-    return `${x} ${y}`
-  }
-}
-
-console.log(overloadFunc(1,2));

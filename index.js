@@ -1,35 +1,38 @@
 "use strict";
-/* TypeScript => function, signature functions, function overloads */
-// function fnName(arg1:arg-type, arg2:arg-type): return-data-type {
-//   return x ** y;
-// }
-// Function Decloration
-function pow(x, y) {
-    return x ** y;
+/* TypeScript'da tiplarni o'zgartirish va birlashtirish */
+// unknown type, union types, literal types, type aliases, required and optional properties, operator in
+let a = 10;
+let b = a; // Bu usul tavsiya qilinmaydi
+let c = 20.9745;
+let d = c;
+let f = c; // Bu usul Type'ni o'zgartirishning xavfsiz usuli
+// let d: number = (<number> c).toString()
+// let f: number = (c as number).toFixed(2)
+// union types - bitta variablega bir qancha Type berish
+let h = 10;
+h = 'one';
+h = true;
+// literal types - variable'ga berish mumkin bo'lgan bir qancha qiymat'ni ko'rsatish
+let s;
+s = "sm";
+s = "lg";
+s = "md";
+let s2 = "SM";
+s2 = "LG";
+s2 = "MD";
+let s3 = false;
+s3 = "SM";
+let obj1 = { name: "Hello" };
+obj1 = { age: 20 };
+obj1 = { name: "Hello1", age: 20 };
+let obj2 = { name: "Azizbek", age: 13 };
+let obj3 = { name: "Diyorbek" };
+obj3 = { name: "Diyorbek", age: 20 };
+// obj3 = { age: 20 }
+if ("age" in obj3) {
+    console.log("mavjud");
 }
-// Arrow Function
-const add = (x, y) => x + y;
-// void functions - hech narsa qaytarmaydigan funksiyalar.
-function log(x) {
-    console.log(x);
+else {
+    console.log("mavjud emas");
 }
-// never functions - hech qachon tugamaydiga (rekursev), yoki Error qaytaradigan funksiyalar
-function someFunc(s) {
-    throw new Error(s);
-}
-// signature functions - biz shablon yaratamiz va keyinroq shunga moslab qiymat beramiz
-let c;
-c = function (a, b) {
-    return `${b}: ${a}`;
-};
-console.log(c(2, "Javob"));
-function overloadFunc(x, y) {
-    if (typeof x === 'number' && typeof y === 'number') {
-        return x + y;
-    }
-    else {
-        return `${x} ${y}`;
-    }
-}
-console.log(overloadFunc(1, 2));
 //# sourceMappingURL=index.js.map

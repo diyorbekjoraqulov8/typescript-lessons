@@ -1,59 +1,59 @@
-/* TypeScript'da tiplarni o'zgartirish va birlashtirish */
-// unknown type, union types, literal types, type aliases, required and optional properties, operator in
+// TypeScript - Arrays, Tuples & Enums
 
-let a: any = 10
-let b: number = a // Bu usul tavsiya qilinmaydi
+let a = []; // type of a auto ANY
+a = [12, "dfr", true, undefined, {}]
 
-let c: unknown = 20.9745
-let d: number = <number>c
-let f: number = c as number // Bu usul Type'ni o'zgartirishning xavfsiz usuli
+// let b = [1,3,2,7,9] // type of b is number
+// b = ['efef'] // Error
+let b: number[];
 
-// let d: number = (<number> c).toString()
-// let f: number = (c as number).toFixed(2)
+b = [12,42]
 
-// union types - bitta variablega bir qancha Type berish
-let h: number | string | boolean = 10;
-h = 'one'
-h = true
+let c: Array<number> = [12] // type of c number Array
+c = [4,67,9]
 
-// literal types - variable'ga berish mumkin bo'lgan bir qancha qiymat'ni ko'rsatish
+let d: (number | string)[] = ['He', 12, "sdgf"] // type of d number and string Array
+let e: Array<boolean | number> = [false, 2] // type of e boolean and number Array
+// e = ['1'] // Error
 
-let s: "sm" | "md" | "lg"
-s = "sm"
-s = "lg"
-s = "md"
+// ==================================
+// Tuples (Kartejlar) - har bit array indexi'dagi qiymat uchun type berish.
 
-// Type aliases - bir TYPE'ga bir qancha Type va qiymatlarni birlashtirish
+let f: [number, string]; // in f must be index 1 = number and index 2 = string
+f = [9,'dgrfg']
+// f = [334] // Error, because f must have two properties
 
-type Sizes = "SM" | "MD" | "LG" | boolean
+let j: [number, string[]];
+let h: [[number, boolean], [null, undefined]];
 
-let s2: Sizes = "SM"
-s2 = "LG"
-s2 = "MD"
+// ==================================
+// Enums - Qayta hisoblash
 
-let s3: Sizes = false;
-s3 = "SM"
-
-type OBJ1 = { name: string } | { age: number } // properties are optional
-
-let obj1: OBJ1 = { name: "Hello" }
-obj1 = { age: 20 }
-obj1 = { name: "Hello1", age: 20 }
-
-type OBJ2 = { name: string } & { age: number } // both property are required
-
-let obj2: OBJ2 = { name: "Azizbek", age: 13 }
-// let obj2: OBJ2 = { name: "Azizbek" }
-// let obj2: OBJ2 = { age: 13 }
-
-type OBJ3 = { name: string; age?: number }; // name is required and age is optional
-
-let obj3: OBJ3 = { name: "Diyorbek" }
-obj3 = { name: "Diyorbek", age: 20 }
-// obj3 = { age: 20 }
-
-if ("age" in obj3) {
-  console.log("mavjud");
-} else {
-  console.log("mavjud emas");
+enum Gender {
+  Male,
+  Female
 }
+// console.log(Gender); // Gender = { '0': 'Male', '1': 'Female', Male: 0, Female: 1 }
+// console.log(Gender.Male, Gender.Female); // 0 1
+// console.log(Gender[Gender.Male], Gender[Gender.Female]); // Male Female
+
+enum G {
+  A, // 0
+  B = 10, // 10
+  C // 11
+}
+// console.log(G); // { '0': 'A', '10': 'B', '11': 'C', A: 0, B: 10, C: 11 }
+// console.log(G.A, G.B, G.C); // 0 10 11
+
+enum H {
+  A = "Hello",
+  B = "Typescript"
+}
+// enumga String bersak key orqali value'ni ololamiz, ammo value orqali keyni emas
+// console.log(H); // { A: 'Hello', B: 'Typescript' }
+
+const enum I {
+  A,
+  B
+}
+// Agar enum'ni const bilan elon qiladigan bo'lsak kompilatsiya paytoda kod emas to'g'ridan to'g'ri natija o'tadi
